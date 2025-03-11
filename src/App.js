@@ -9,6 +9,7 @@ import CreateContent from "./components/CreateContent";
 class App extends Component {
   constructor(props) {
     super(props);
+    this.max_content_id = 3;
     this.state = {
       mode: "create",
       selected_content_id : 9,
@@ -53,7 +54,34 @@ class App extends Component {
 
       _article = <ReadContent title={_title} sub={_desc}></ReadContent> ;
     } else if(this.state.mode === "create") {  
-      _article = <CreateContent></CreateContent> ;
+      _article = <CreateContent onSubmit={function(_title, _desc){
+          // contenst 에 추가하기
+          // console.log("추가하기기");
+          // let _content =  _this.state.content;
+          // _this.max_content_id =  _this.max_content_id + 1;
+          // _content.push({ id: _this.max_content_id  , title: _title , desc: _desc });
+          // _this.setState({ content : _content });
+
+          // _this.max_content_id =  _this.max_content_id + 1;
+          // _this.state.content.push(
+          //   { id: _this.max_content_id  , title: _title , desc: _desc }
+          // ); 
+          // _this.setState({ content : _this.state.content });
+
+          // _this.max_content_id =  _this.max_content_id + 1;
+          // let content = _this.state.content.concat( { id: _this.max_content_id  , title: _title , desc: _desc } );
+          // _this.setState({ content : content });
+
+
+          _this.max_content_id =  _this.max_content_id + 1;
+          let content = Array.from(_this.state.content);
+          content.push( { id: _this.max_content_id  , title: _title , desc: _desc } );
+          _this.setState({ content : content })
+
+          // console.log(this);
+          // console.log(_this);
+
+      }}></CreateContent> ;
     }
 
     // console.log("render", this);

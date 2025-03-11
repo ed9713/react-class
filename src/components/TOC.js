@@ -5,8 +5,18 @@ class TOC extends Component{
 
   // this.props.data
 
-  render(){
+  shouldComponentUpdate( newProps , newState ){
 
+    console.log("shouldComponentUpdate" ,  newProps.data , this.props.data );
+    if(newProps.data  ===  this.props.data  ){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  render(){
+    console.log("render");
     var lists = [];
     var data = this.props.data;
     var i = 0 ;
