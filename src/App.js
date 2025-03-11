@@ -2,13 +2,15 @@ import "./App.css";
 import React, { Component } from "react";
 import TOC from "./components/TOC";
 import Subject from "./components/Subject";
-import Content from "./components/Content";
+import ReadContent from "./components/ReadContent";
+import Control from "./components/Control";
+import CreateContent from "./components/CreateContent";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mode: "read",
+      mode: "create",
       selected_content_id : 9,
       welcome: { title: "welcome", sub: "환영합니다." },
       subject: { title: "web", sub: "서브입니다. 111" },
@@ -24,12 +26,16 @@ class App extends Component {
     // console.log("app");
 
     var _this = this;
-    var _title, _desc = null;
+    var _title, _desc , _article = null;
+    
     const _state = this.state;
     if (this.state.mode === "welcome") {
       _title = this.state.welcome.title;
       _desc = _state.welcome.sub;
-    } else {
+
+      _article = <ReadContent title={_title} sub={_desc}></ReadContent> ;
+
+    } else if(this.state.mode === "read") {
       _title = this.state.subject.title;
       _desc = _state.subject.sub;
 
@@ -39,11 +45,15 @@ class App extends Component {
           }          
       });
 
-      // console.log(one);
+      
       if( one && one.length ===  1  ){
         _title = one[0].title;
         _desc = one[0].desc;
       }
+
+      _article = <ReadContent title={_title} sub={_desc}></ReadContent> ;
+    } else if(this.state.mode === "create") {  
+      _article = <CreateContent></CreateContent> ;
     }
 
     // console.log("render", this);
@@ -60,11 +70,17 @@ class App extends Component {
         ></Subject>
 
         <br />
+        { /* TOC */ }
         <TOC onChangePage={function(id){
           // console.log(id);
           this.setState({mode:'read' , selected_content_id : id });          
         }.bind(this)} data={this.state.content}></TOC>
-        <Content title={_title} sub={_desc}></Content>
+
+        { /* control */ }
+        <Control onChangeMode={function(_mode){
+          this.setState({mode : _mode });    
+        }.bind(this)}/>
+        {_article}        
       </div>
     );
   }
