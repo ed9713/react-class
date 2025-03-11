@@ -7,7 +7,7 @@ class TOC extends Component{
 
   shouldComponentUpdate( newProps , newState ){
 
-    console.log("shouldComponentUpdate" ,  newProps.data , this.props.data );
+    // console.log("shouldComponentUpdate" ,  newProps.data , this.props.data );
     if(newProps.data  ===  this.props.data  ){
       return false;
     }else{
